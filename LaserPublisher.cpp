@@ -52,7 +52,7 @@ LaserPublisher::LaserPublisher(ArLaser *_l, ros::NodeHandle& _n, bool _broadcast
   lasertf.setRotation(q);
   
 
-  laserscan.header.frame_id = "laser_frame";
+  laserscan.header.frame_id = tfname;
   laserscan.angle_min = ArMath::degToRad(laser->getStartDegrees());
   laserscan.angle_max = ArMath::degToRad(laser->getEndDegrees());
   //laserscan.time_increment = ?

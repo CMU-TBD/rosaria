@@ -110,6 +110,7 @@ class RosAriaNode
     geometry_msgs::TransformStamped odom_trans;
     
     std::string frame_id_odom;
+    std::string frame_id_laser;
     std::string frame_id_base_link;
     std::string frame_id_bumper;
     std::string frame_id_sonar;
@@ -305,6 +306,7 @@ RosAriaNode::RosAriaNode(ros::NodeHandle nh) :
 
   // Get frame_ids to use.
   n.param("odom_frame", frame_id_odom, std::string("odom"));
+  n.param("laser_frame", frame_id_laser, std::string("laser"));
   n.param("base_link_frame", frame_id_base_link, std::string("base_link"));
   n.param("bumpers_frame", frame_id_bumper, std::string("bumpers"));
   n.param("sonar_frame", frame_id_sonar, std::string("sonar"));
@@ -498,10 +500,9 @@ int RosAriaNode::Setup()
     {
       ArLaser *l = i->second;
       int ln = i->first;
-      std::string tfname("laser");
+      auto tfname = frame_id_laser;
       if(lasers->size() > 1 || ln > 1) // no number if only one laser which is also laser 1
         tfname += ln; 
-      tfname += "_frame";
       ROS_INFO_NAMED("rosaria", "rosaria: Creating publisher for laser #%d named %s with tf frame name %s", ln, l->getName(), tfname.c_str());
       new LaserPublisher(l, n, true, tfname);
     }
