@@ -504,7 +504,7 @@ int RosAriaNode::Setup()
       if(lasers->size() > 1 || ln > 1) // no number if only one laser which is also laser 1
         tfname += ln; 
       ROS_INFO_NAMED("rosaria", "rosaria: Creating publisher for laser #%d named %s with tf frame name %s", ln, l->getName(), tfname.c_str());
-      new LaserPublisher(l, n, true, tfname);
+      new LaserPublisher(l, n, false, tfname);
     }
     robot->unlock();
     ROS_INFO_NAMED("rosaria", "rosaria: Done creating laser publishers");
