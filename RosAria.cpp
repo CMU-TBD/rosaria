@@ -719,7 +719,6 @@ void
 RosAriaNode::cmdvel_cb( const geometry_msgs::TwistConstPtr &msg)
 {
   veltime = ros::Time::now();
-  ROS_INFO( "new speed: [%0.2f,%0.2f](%0.3f)", msg->linear.x*1e3, msg->angular.z, veltime.toSec() );
 
   robot->lock();
   robot->setVel(msg->linear.x*1e3);
